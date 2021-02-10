@@ -1,6 +1,6 @@
 from random import randint
 
-class Genotipo:
+class Individuo:
 
     def __init__(self, vetor):
         self.gen = []
@@ -10,12 +10,11 @@ class Genotipo:
             self.gen.append(str_bin)
             print(self.gen)
         
-    def getGenotipoCompleto(self):
+    def getIndividuoCompleto(self):
         return ''.join(self.gen)
     
-    def getGenotipoInteger(self):
+    def getIndividuoInteger(self):
         return [int(x, 2) for x in self.gen]
 
     def mutacao():
         return bin(randint(0,7))[2:]
-    
