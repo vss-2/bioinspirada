@@ -1,14 +1,13 @@
-from random import randint
+from random import randint, shuffle
 
 class Individuo:
 
-    def __init__(self, vetor):
+    def __init__(self):
         self.gen = []
-        for i in vetor:
-            str_bin = bin(i)[2:]
-            str_bin = '000'[:-len(str_bin)] + str_bin
+        for i in range(8):
+            str_bin = str('000' + format(i, 'b'))[-4:]
             self.gen.append(str_bin)
-            print(self.gen)
+        shuffle(self.gen)
         
     def getIndividuoCompleto(self):
         return ''.join(self.gen)
@@ -16,5 +15,9 @@ class Individuo:
     def getIndividuoInteger(self):
         return [int(x, 2) for x in self.gen]
 
-    def mutacao():
-        return bin(randint(0,7))[2:]
+    @property
+    def fitness():
+        # Aqui vai o cálculo de quantas 
+        # rainhas estão se atacando
+        n = 0
+        return 1/(1 + n)
