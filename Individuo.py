@@ -2,11 +2,9 @@ from random import randint, shuffle
 
 class Individuo:
 
-    def __init__(self):
-        self.gen = []
-        for i in range(8):
-            str_bin = str('000' + format(i, 'b'))[-4:]
-            self.gen.append(str_bin)
+    def __init__(self, n = 8):
+        qtBits = len(bin(n-1)[2:])
+        self.gen = [str(('0' * qtBits) + format(i, 'b'))[-qtBits:] for i in range(n)]
         shuffle(self.gen)
         
     def getIndividuoCompleto(self):
@@ -15,8 +13,10 @@ class Individuo:
     def getIndividuoInteger(self):
         return [int(x, 2) for x in self.gen]
 
+    
+
     @property
-    def fitness():
+    def fitness(self):
         # Aqui vai o cálculo de quantas 
         # rainhas estão se atacando
         n = 0
