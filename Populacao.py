@@ -2,5 +2,5 @@ from Individuo import Individuo
 
 class Populacao:
 
-    def __init__(self, n=8,g=0):
-        self.pop = [Individuo(n, None, g) for i in range(100)]
+    def __init__(self, n=8,ger=0):
+        self.pop = [Individuo(n, None, ger) for i in range(100)]
