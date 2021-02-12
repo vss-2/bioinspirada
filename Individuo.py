@@ -3,7 +3,8 @@ from random import randint, shuffle
 class Individuo:
     def __init__(self, n = 8, gen=None, ger=0):
         if not gen:
-            self.gen = [str('000' + format(i, 'b'))[-3:] for i in range(n)]
+            qtBits = len(bin(n-1)[2:])
+            self.gen = [str(('0' * qtBits) + format(i, 'b'))[-qtBits:] for i in range(n)]
             shuffle(self.gen)
         else:
             self.gen = gen
