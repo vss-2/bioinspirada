@@ -2,8 +2,8 @@ from random import randint
 
 # Exemplo do Slide
 # input:
-pai1 = [1,3,5,2,6,4,7,8]
-pai2 = [8,7,6,5,4,3,2,1]
+# pai1 = [1,3,5,2,6,4,7,8]
+# pai2 = [8,7,6,5,4,3,2,1]
 # p_crossover = 3
 # output: [1, 3, 5, 4, 2, 8, 7, 6] [8, 7, 6, 2, 4, 1, 3, 5]
 
