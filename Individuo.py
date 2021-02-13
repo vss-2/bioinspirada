@@ -2,14 +2,15 @@ from random import randint, shuffle
 
 class Individuo:
     def __init__(self, n=8, gen=None, ger=0):
-        self.n = n
         if not gen:
             qtBits = len(bin(n-1)[2:])
             self.gen = [str(('0' * qtBits) + format(i, 'b'))[-qtBits:] for i in range(n)]
             shuffle(self.gen)
         else:
-            self.gen = gen
-            
+            qtBits = len(bin(max(gen))[2:])
+            self.gen = [str(('0' * qtBits) + format(i, 'b'))[-qtBits:] for i in gen]
+        
+        self.n = len(self.gen)
         self.ger = ger
         
     def getIndividuoCompleto(self):
