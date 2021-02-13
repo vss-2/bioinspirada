@@ -1,3 +1,4 @@
+# Projeto Bioinspirada
 ### Especificação Mini Projeto 1
 * Representação (genótipo): string de bits
 * Recombinação: “cut-and-crossfill” crossover
@@ -10,3 +11,14 @@
 * Número de filhos gerados: 2
 * Inicialização: aleatória
 * Condição de término: Encontrar a solução, ou 10.000 avaliações de fitness
+
+### Especificação Mini Projeto 2
+
+* Implementar possíveis melhorias mudando:
+    * Representação
+    * Recombinação 
+    * Mutação
+    * Seleção de pais – roleta?
+    * Seleção de sobreviventes: geracional ou substituição do pior
+    * Tamanho da população: 10? 30? 50? 70? 120? 200?
+    * O fitness pode ser melhorado?
