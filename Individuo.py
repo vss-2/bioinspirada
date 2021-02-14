@@ -1,4 +1,4 @@
-from random import randint, shuffle
+from random import randint, shuffle, sample
 
 class Individuo:
     def __init__(self, n=8, gen=None, ger=0):
@@ -18,6 +18,10 @@ class Individuo:
     
     def getIndividuoInteger(self):
         return [int(x, 2) for x in self.gen]
+
+    def mutate(self):
+        pos1, pos2 = sample(range(self.n), k=2)
+        self.gen[pos1], self.gen[pos2] = self.gen[pos2], self.gen[pos1]
 
     
 

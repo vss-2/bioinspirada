@@ -1,5 +1,5 @@
 from Individuo import Individuo
-from random import choices, randint
+from random import sample, randint
 from recombinacao import recombinacao
 class Populacao:
 
@@ -13,7 +13,7 @@ class Populacao:
             probCrossover = randint(0, 99)
             if probCrossover < 90:
                 # 2 melhores de 5 aleatorios
-                paisSelecionados = sorted(choices(self.pop, k=5), key=lambda i: i.fitness)[-2:]
+                paisSelecionados = sorted(sample(self.pop, k=5), key=lambda i: i.fitness)[-2:]
                 filho1, filho2 = recombinacao(paisSelecionados[0], paisSelecionados[1])
                 filho1 = Individuo(gen=filho1, ger=ger)
                 filho2 = Individuo(gen=filho2, ger=ger)
