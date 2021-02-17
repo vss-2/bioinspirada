@@ -37,9 +37,9 @@ def main():
     for i in range(1, execs+1):
         p = Populacao()
         p.generateSolution()
-        exec_nec, ind_conv      = [j.fitness for j in p.pop].index(1), [j.fitness for j in p.pop].count(1)
+        exec_nec, ind_conv      = max([j.ger for j in p.pop]), [j.fitness for j in p.pop].count(1)
         ind_fit_med, ind_fit_dp = mean([j.fitness for j in p.pop]),    std([j.fitness for j in p.pop])
-        print('Execuções Necessárias: {}\Fitness Médio: {}\nDesvio Padrão: {}\nNúmero de Indivíduos Convergentes: {}\n'.format(exec_nec, ind_fit_med, ind_fit_dp, ind_conv))
+        print('Execuções Necessárias: {}\nFitness Médio: {}\nDesvio Padrão: {}\nNúmero de Indivíduos Convergentes: {}\n'.format(exec_nec, ind_fit_med, ind_fit_dp, ind_conv))
         escrever(i, exec_nec, ind_fit_med, ind_fit_dp, ind_conv)
     avaliacao()
     return
