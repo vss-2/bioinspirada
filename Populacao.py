@@ -28,3 +28,34 @@ class Populacao:
             ger += 1
 
         return self.pop[-1]
+
+    def roleta(self):
+        somatorio = 0
+        for i in self.pop:
+            somatorio += i.fitness
+        # Calcula soma do fitness total para dividir em percentual
+        
+        # fr = fitness_relativo, 
+        # Divide os percentuais de acordo com valor fit
+        fr = [(i.fitness/somatorio)*100 for i in self.pop]
+        # print('Divisão percentual:',fr)
+
+        # Inicia e executa a roleta
+        r = randint(0,100)
+        # print('Sorteado na roleta foi:',r)
+
+        roletado = 0
+        pos_roleta = 0
+        for pos, fit in enumerate(fr):
+            # print(pos, fit)
+            if(pos_roleta < r):
+                pos_roleta += fit
+            else:
+                # Vai retornar o indivíduo escolhido
+                roletado = pos
+                break
+        return self.pop[roletado]
+
+    def selecaoGeracional(self, g):
+        # G = geracao escolhida
+        return [k for k in self.pop if k.ger == g]
