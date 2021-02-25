@@ -16,9 +16,12 @@
 
 * Implementar possíveis melhorias mudando:
     * Representação
-    * Recombinação 
-    * Mutação
-    * Seleção de pais – roleta?
-    * Seleção de sobreviventes: geracional ou substituição do pior
+    * Recombinação
+          * Cycle Crossover (CX)
+          * Simulated Binary Crossover (SBX)
+    * Mutação 
+          * Mutação por Inserção para permutações
+    * Seleção de pais: Roleta
+    * Seleção de sobreviventes: Geracional
     * Tamanho da população: 10? 30? 50? 70? 120? 200?
-    * O fitness pode ser melhorado?
+    * O fitness pode ser melhorado? (em aberto)
