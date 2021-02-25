@@ -17,10 +17,10 @@
 * Implementar possíveis melhorias mudando:
     * Representação
     * Recombinação
-          * Cycle Crossover (CX)
-          * Simulated Binary Crossover (SBX)
+        * Cycle Crossover (CX)
+        * Simulated Binary Crossover (SBX)
     * Mutação 
-          * Mutação por Inserção para permutações
+        * Mutação por Inserção para permutações
     * Seleção de pais: Roleta
     * Seleção de sobreviventes: Geracional
     * Tamanho da população: 10? 30? 50? 70? 120? 200?
