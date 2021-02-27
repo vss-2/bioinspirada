@@ -30,23 +30,25 @@ class Individuo:
         # Aqui vai o cálculo de quantas 
         # rainhas estão se atacando
         genInt = self.getIndividuoInteger()
+        # Vetores de frequencia
+        f_linha = [0] * self.n
+        f_diag1 = [0] * (self.n * 2) # Diagonal principal
+        f_diag2 = [0] * (self.n * 2) # Diagonal secundaria
         qtAtaques = 0
         for i in range(self.n):
-            # x == linha == valor na posicao do gene
-            # y == coluna == posicao do gene
-            x, y = genInt[i], i
-            xb, yb  = x, y
-            ataques = 0
+            x = genInt[i]
+            f_linha[x] += 1
+            f_diag1[x + i] += 1
+            f_diag2[self.n - x + i + 1] += 1
+        
+        for i in range(2*self.n):
+            x, y, z = 0, 0, 0
+            if i < self.n: x = f_linha[i]
+            y = f_diag1[i]
+            z = f_diag2[i]
 
-            for dx in [-1, 1]:
-                for dy in [-1, 1]:
-                    xb, yb = x, y
-                    while(0 <= xb < self.n and 0 <= yb < self.n):
-                        if xb != x and yb != y and xb == genInt[yb]:
-                            ataques += 1
-                        xb += dx
-                        yb += dy
-            
-            qtAtaques += ataques
+            qtAtaques += (x * (x - 1)) / 2
+            qtAtaques += (y * (y - 1)) / 2
+            qtAtaques += (z * (z - 1)) / 2
 
         return 1/(1 + qtAtaques)
