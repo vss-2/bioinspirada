@@ -19,9 +19,14 @@ class Individuo:
     def getIndividuoInteger(self):
         return [int(x, 2) for x in self.gen]
 
-    def mutate(self):
+    def mutate(self, type=1):
         pos1, pos2 = sample(range(self.n), k=2)
-        self.gen[pos1], self.gen[pos2] = self.gen[pos2], self.gen[pos1]
+        pos1, pos2 = min(pos1, pos2), max(pos1, pos2)
+        if type == 1:
+            self.gen[pos1], self.gen[pos2] = self.gen[pos2], self.gen[pos1]
+        elif type == 2:
+            self.gen = self.gen[:pos1+1] + [self.gen[pos2]] + [i for i in self.gen[pos1+1:] if i != self.gen[pos2]]
+
 
     
 
