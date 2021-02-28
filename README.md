@@ -17,7 +17,7 @@
 * Implementar possíveis melhorias mudando:
     * Representação
     * Recombinação
-        * Cycle Crossover (CX)
+        * ~~Cycle Crossover (CX)~~
         * Simulated Binary Crossover (SBX)
     * Mutação 
         * Mutação por Inserção para permutações
