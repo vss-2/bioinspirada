@@ -1,13 +1,15 @@
 from Individuo import Individuo
 from random import sample, randint
 from recombinacao import recombinacao
+
 class Populacao:
+
 
     def __init__(self, n=8,ger=0):
         self.pop = [Individuo(n, None, ger) for i in range(100)]
         self.pop.sort(key=lambda i: i.fitness)
 
-    def generateSolution(self):
+    def generateSolution(self, modo=None):
         ger = 1
         while self.pop[-1].fitness != 1 and ger != 10000:
             probCrossover = randint(0, 99)
@@ -21,12 +23,21 @@ class Populacao:
                     probMutacao = randint(0, 99)
                     if probMutacao < 40: i.mutate()
                 
-                self.pop += [filho1, filho2]
-                self.pop.sort(key=lambda i: i.fitness)
-                self.pop = self.pop[2:]
-                
+                # Filhos substituem os pais na população
+                if modo == 'geracional':
+                    for p in range(0,len(self.pop)):
+                        if self.pop[p].__str__() == paisSelecionados[0].__str__():
+                            self.pop[p] = filho1
+                        if self.pop[p].__str__() == paisSelecionados[1].__str__():
+                            self.pop[p] = filho2
+                    self.pop.sort(key=lambda i: i.fitness)
+                else:
+                    # Remoção dos 2 piores
+                    self.pop += [filho1, filho2]
+                    self.pop.sort(key=lambda i: i.fitness)
+                    self.pop = self.pop[2:]
+                    
             ger += 1
-
         return self.pop[-1]
 
     def roleta(self):
@@ -55,7 +66,3 @@ class Populacao:
                 roletado = pos
                 break
         return self.pop[roletado]
-
-    def selecaoGeracional(self, g):
-        # G = geracao escolhida
-        return [k for k in self.pop if k.ger == g]
