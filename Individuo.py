@@ -44,7 +44,7 @@ class Individuo:
             x = genInt[i]
             f_linha[x] += 1
             f_diag1[x + i] += 1
-            f_diag2[self.n - x + i + 1] += 1
+            f_diag2[self.n - x + i] += 1
         
         for i in range(2*self.n):
             x, y, z = 0, 0, 0
