@@ -7,10 +7,10 @@ from random import randint
 # p_crossover = 3
 # output: [1, 3, 5, 4, 2, 8, 7, 6] [8, 7, 6, 2, 4, 1, 3, 5]
 
-def recombinacao(gene1, gene2, type=1):
+def recombinacao(gene1, gene2, tipo=1):
     n = len(gene1)
     filho1, filho2 = [], []
-    if type == 1:
+    if tipo == 1:
         p_crossover = randint(1,n-2)
         # print(p_crossover)
         filho1 = gene1[0:p_crossover]
@@ -25,7 +25,7 @@ def recombinacao(gene1, gene2, type=1):
     
     # Cycle crossover
     # Source: https://codereview.stackexchange.com/questions/226179/easiest-way-to-implement-cycle-crossover
-    elif type == 2:
+    elif tipo == 2:
         cycles = [-1] * n
         cycle_id = 0
         cyclestart = (i for i, v in enumerate(cycles) if v < 0) # construtor que vai manter os indices dos cycles < 0
@@ -47,6 +47,6 @@ def recombinacao(gene1, gene2, type=1):
         # print(cycles)
     return filho1, filho2
 
-print()
-print(recombinacao(range(1, 10), [9,3,7,8,2,6,5,1,4], type=2)) # Exemplo do slide
+# print()
+# print(recombinacao(range(1, 10), [9,3,7,8,2,6,5,1,4], tipo=2)) # Exemplo do slide
 # print(recombinacao([1,3,5,2,6,4,7,8], [8,7,6,5,4,3,2,1]))

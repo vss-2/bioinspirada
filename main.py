@@ -1,4 +1,5 @@
 import csv
+import sys
 import os
 from numpy import double, std, mean
 from Populacao import Populacao
@@ -30,13 +31,25 @@ def avaliacao():
     return
 
 def main():
+
+    modo = None
+    if('geracional' in sys.argv): modo = 'geracional'
+
+    tipo = None
+    if('1' in sys.argv):
+        tipo = 1
+    elif('2' in sys.argv):
+        tipo = 2
+    elif('3' in sys.argv):
+        tipo = 3
+
     with open(file=arqnome, mode='w', newline='') as csvfile:
         escritor = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
         escritor.writerow(['Execução', 'Execuções Necessárias', 'Fitness Médio', 'Desvio Padrão do Fitness', 'Número de Indivíduos Convergentes'])
     
     for i in range(1, execs+1):
         p = Populacao()
-        p.generateSolution()
+        p.generateSolution(modo, tipo)
         exec_nec, ind_conv      = max([j.ger for j in p.pop]), [j.fitness for j in p.pop].count(1)
         ind_fit_med, ind_fit_dp = mean([j.fitness for j in p.pop]),    std([j.fitness for j in p.pop])
         print('Execuções Necessárias: {}\nFitness Médio: {}\nDesvio Padrão: {}\nNúmero de Indivíduos Convergentes: {}\n'.format(exec_nec, ind_fit_med, ind_fit_dp, ind_conv))
