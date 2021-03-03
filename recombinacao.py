@@ -1,4 +1,5 @@
 from random import randint
+import numpy as np
 
 # Exemplo do Slide
 # input:
@@ -22,6 +23,8 @@ def recombinacao(gene1, gene2, tipo=1):
             
             if gene1[(i + p_crossover) % n] not in filho2:
                 filho2.append(gene1[(i + p_crossover) % n])
+        
+        return filho1, filho2
     
     # Cycle crossover
     # Source: https://codereview.stackexchange.com/questions/226179/easiest-way-to-implement-cycle-crossover
@@ -45,8 +48,112 @@ def recombinacao(gene1, gene2, tipo=1):
                 for i, n in enumerate(cycles)]
         
         # print(cycles)
-    return filho1, filho2
+        return filho1, filho2
+
+    elif tipo == 3:
+        # Source: https://stackoverflow.com/questions/53254449/how-to-perform-partial-mapped-crossover-in-python3
+        
+        ''' Exemplo usado no slide (que resulta em apenas no output: [9 3 2 4 5 6 7 1 8]):
+            parent1 = [1,2,3,4,5,6,7,8,9]    
+            parent2 = [9,3,7,8,2,6,5,1,4]
+            firstCrossPoint = 3
+            secondCrossPoint = 7
+        '''
+
+        parent1 = gene1
+        parent2 = gene2
+
+        firstCrossPoint = np.random.randint(0,len(parent1)-2)
+        secondCrossPoint = np.random.randint(firstCrossPoint+1,len(parent1)-1)
+
+        # print(firstCrossPoint, secondCrossPoint)
+
+        parent1MiddleCross = parent1[firstCrossPoint:secondCrossPoint]
+        parent2MiddleCross = parent2[firstCrossPoint:secondCrossPoint]
+
+        temp_child1 = parent1[:firstCrossPoint] + parent2MiddleCross + parent1[secondCrossPoint:]
+
+        temp_child2 = parent2[:firstCrossPoint] + parent1MiddleCross + parent2[secondCrossPoint:]
+
+        relations = []
+        for i in range(len(parent1MiddleCross)):
+            relations.append([parent2MiddleCross[i], parent1MiddleCross[i]])
+
+        # print(relations)
+
+        # As recursões servem pra "traçar as retas do slide", ou seja:
+        # ir de um pai ao outro pai para encontrar onde está o inteiro correspondente, 
+        # caso esteja na região de crossover ou não
+
+        def recursion1(temp_child , firstCrossPoint , secondCrossPoint , parent1MiddleCross , parent2MiddleCross) :
+            child = np.array([0 for i in range(len(parent1))])
+            for i,j in enumerate(temp_child[:firstCrossPoint]):
+                c=0
+                for x in relations:
+                    if j == x[0]:
+                        child[i]=x[1]
+                        c=1
+                        break
+                if c==0:
+                    child[i]=j
+            j=0
+            for i in range(firstCrossPoint,secondCrossPoint):
+                child[i]=parent2MiddleCross[j]
+                j+=1
+
+            for i,j in enumerate(temp_child[secondCrossPoint:]):
+                c=0
+                for x in relations:
+                    if j == x[0]:
+                        child[i+secondCrossPoint]=x[1]
+                        c=1
+                        break
+                if c==0:
+                    child[i+secondCrossPoint]=j
+            child_unique=np.unique(child)
+            if len(child)>len(child_unique):
+                child=recursion1(child,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross)
+            return(child)
+
+        def recursion2(temp_child,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross):
+            child = np.array([0 for i in range(len(parent1))])
+            for i,j in enumerate(temp_child[:firstCrossPoint]):
+                c=0
+                for x in relations:
+                    if j == x[1]:
+                        child[i]=x[0]
+                        c=1
+                        break
+                if c==0:
+                    child[i]=j
+            j=0
+            for i in range(firstCrossPoint,secondCrossPoint):
+                child[i]=parent1MiddleCross[j]
+                j+=1
+
+            for i,j in enumerate(temp_child[secondCrossPoint:]):
+                c=0
+                for x in relations:
+                    if j == x[1]:
+                        child[i+secondCrossPoint]=x[0]
+                        c=1
+                        break
+                if c==0:
+                    child[i+secondCrossPoint]=j
+            child_unique=np.unique(child)
+            if len(child)>len(child_unique):
+                child=recursion2(child,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross)
+            return(child)
+
+        child1=recursion1(temp_child1,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross)
+        child2=recursion2(temp_child2,firstCrossPoint,secondCrossPoint,parent1MiddleCross,parent2MiddleCross)
+
+        # print(child1, child2, sep='\n')
+        return child1.tolist(), child2.tolist()
 
 # print()
 # print(recombinacao(range(1, 10), [9,3,7,8,2,6,5,1,4], tipo=2)) # Exemplo do slide
 # print(recombinacao([1,3,5,2,6,4,7,8], [8,7,6,5,4,3,2,1]))
+
+# print(recombinacao([1,2,3,4,5,6,7,8,9],[9,3,7,8,2,6,5,1,4], tipo=3))
+# Nota: resultados mudam a cada execução devido ao random no ponto crossover, sette lá em cima :) 
