@@ -5,18 +5,25 @@ from recombinacao import recombinacao
 class Populacao:
 
 
-    def __init__(self, n=8,ger=0):
-        self.pop = [Individuo(n, None, ger) for i in range(100)]
+    def __init__(self, n=8, popsize=100):
+        self.pop = [Individuo(n) for i in range(popsize)]
         self.pop.sort(key=lambda i: i.fitness)
+        self.cnt = 0
 
-    def generateSolution(self, modo=None, tipo=1):
+    def generateSolution(self, geracional=False, roleta=False, tiporecomb=1):
+        self.cnt = 0
         ger = 1
-        while self.pop[-1].fitness != 1 and ger != 10000:
+        while self.pop[-1].fitness != 1 and self.cnt != 10000:
             probCrossover = randint(0, 99)
             if probCrossover < 90:
                 # 2 melhores de 5 aleatorios
-                paisSelecionados = sorted(sample(self.pop, k=5), key=lambda i: i.fitness)[-2:]
-                filho1, filho2 = recombinacao(paisSelecionados[0].getIndividuoInteger(), paisSelecionados[1].getIndividuoInteger(), tipo)
+                if roleta:
+                    paisSelecionados = self.roleta()
+                else:
+                    paisSelecionados = sorted(sample(self.pop, k=5), key=lambda i: i.fitness)[-2:]
+                    self.cnt += len(self.pop)
+
+                filho1, filho2 = recombinacao(paisSelecionados[0].getIndividuoInteger(), paisSelecionados[1].getIndividuoInteger(), tiporecomb)
                 filho1 = Individuo(gen=filho1, ger=ger)
                 filho2 = Individuo(gen=filho2, ger=ger)
                 for i in [filho1, filho2]:
@@ -24,7 +31,7 @@ class Populacao:
                     if probMutacao < 40: i.mutate()
                 
                 # Filhos substituem os pais na população
-                if modo == 'geracional':
+                if geracional:
                     for p in range(0,len(self.pop)):
                         if self.pop[p].__str__() == paisSelecionados[0].__str__():
                             self.pop[p] = filho1
@@ -36,6 +43,8 @@ class Populacao:
                     self.pop += [filho1, filho2]
                     self.pop.sort(key=lambda i: i.fitness)
                     self.pop = self.pop[2:]
+                
+                self.cnt += len(self.pop)
                     
             ger += 1
         return self.pop[-1]
@@ -44,11 +53,13 @@ class Populacao:
         somatorio = 0
         for i in self.pop:
             somatorio += i.fitness
+            self.cnt += len(self.pop)
         # Calcula soma do fitness total para dividir em percentual
         
         # fr = fitness_relativo, 
         # Divide os percentuais de acordo com valor fit
         fr = [(i.fitness/somatorio)*100 for i in self.pop]
+        self.cnt += len(self.pop)
         # print('Divisão percentual:',fr)
 
         # Inicia e executa a roleta
@@ -65,4 +76,21 @@ class Populacao:
                 # Vai retornar o indivíduo escolhido
                 roletado = pos
                 break
-        return self.pop[roletado]
+
+        pai1 = self.pop[roletado]
+
+        while True:
+            r = randint(0,100)
+            roletado = 0
+            pos_roleta = 0
+            for pos, fit in enumerate(fr):
+                if(pos_roleta < r):
+                    pos_roleta += fit
+                else:
+                    roletado = pos
+                    break
+            pai2 = self.pop[roletado]
+            if pai2 != pai1:
+                break
+
+        return [pai1, pai2]

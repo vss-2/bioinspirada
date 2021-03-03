@@ -1,6 +1,8 @@
 from random import randint, shuffle, sample
 
 class Individuo:
+
+
     def __init__(self, n=8, gen=None, ger=0):
         if not gen:
             qtBits = len(bin(n-1)[2:])
@@ -26,10 +28,7 @@ class Individuo:
             self.gen[pos1], self.gen[pos2] = self.gen[pos2], self.gen[pos1]
         elif type == 2:
             self.gen = self.gen[:pos1+1] + [self.gen[pos2]] + [i for i in self.gen[pos1+1:] if i != self.gen[pos2]]
-
-
-    
-
+ 
     @property
     def fitness(self):
         # Aqui vai o cálculo de quantas 
