@@ -15,13 +15,13 @@
 ### Especificação Mini Projeto 2
 
 * Implementar possíveis melhorias mudando:
-    * Representação
-    * Recombinação
+    * ~~Representação~~
+    * ~~Recombinação~~
         * ~~Cycle Crossover (CX)~~
-        * Simulated Binary Crossover (SBX)
+        * ~~Simulated Binary Crossover (SBX)~~
     * ~~Mutação~~
         * ~~Mutação por Inserção para permutações~~
     * ~~Seleção de pais: Roleta~~
-    * Seleção de sobreviventes: Geracional
+    * ~~Seleção de sobreviventes: Geracional~~
     * ~~Tamanho da população: 10? 30? 50? 70? 120? 200?~~
     * O fitness pode ser melhorado? (em aberto)
