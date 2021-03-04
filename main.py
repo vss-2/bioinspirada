@@ -66,8 +66,8 @@ def main():
     
     geracional = roleta = False
     mutacao = cruz = 1
-    pop = 8
-    tab = 100
+    pop = 100
+    tab = 8
 
     # Parser
     for sargs in range(0, len(sys.argv)):
@@ -97,16 +97,16 @@ def main():
     for i in range(1, execs+1):
         p = Populacao(n=tab, popsize=pop)
         p.generateSolution(geracional=geracional, roleta=roleta, tiporecomb=cruz, tipomut=mutacao)
-        exec_nec, ind_conv      = max([j.ger for j in p.pop]), [j.fitness for j in p.pop].count(1)
+        ind_conv = [j.fitness for j in p.pop].count(1)
         ind_fit_med, ind_fit_dp = mean([j.fitness for j in p.pop]),    std([j.fitness for j in p.pop])
         
         print('Execuções Necessárias: {} \n\
             Fitness Médio: {} \n\
             Desvio Padrão: {} \n\
             Número de Indivíduos Convergentes: {} \n'
-            .format(exec_nec, ind_fit_med, ind_fit_dp, ind_conv))
+            .format(p.ger-1, ind_fit_med, ind_fit_dp, ind_conv))
 
-        escrever(i, exec_nec, ind_fit_med, ind_fit_dp, ind_conv)
+        escrever(i, p.ger-1, ind_fit_med, ind_fit_dp, ind_conv)
     avaliacao()
     return
 
