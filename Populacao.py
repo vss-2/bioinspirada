@@ -10,7 +10,7 @@ class Populacao:
         self.pop.sort(key=lambda i: i.fitness)
         self.cnt = 0
 
-    def generateSolution(self, geracional=False, roleta=False, tiporecomb=1):
+    def generateSolution(self, geracional=False, roleta=False, tiporecomb=1, tipomut=1):
         self.cnt = 0
         ger = 1
         while self.pop[-1].fitness != 1 and self.cnt != 10000:
@@ -28,7 +28,7 @@ class Populacao:
                 filho2 = Individuo(gen=filho2, ger=ger)
                 for i in [filho1, filho2]:
                     probMutacao = randint(0, 99)
-                    if probMutacao < 40: i.mutate()
+                    if probMutacao < 40: i.mutate(tipomut)
                 
                 # Filhos substituem os pais na população
                 if geracional:
