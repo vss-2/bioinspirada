@@ -47,7 +47,7 @@ class Populacao:
                 self.cnt += len(self.pop)
                     
             ger += 1
-        return self.pop[-1]
+        return self.pop[-1] if self.pop[-1].fitness == 1 else None
 
     def roleta(self):
         somatorio = 0
