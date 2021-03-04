@@ -1,5 +1,6 @@
 from Individuo import Individuo
 from random import sample, randint
+from functools import reduce
 from recombinacao import recombinacao
 
 class Populacao:
@@ -11,9 +12,13 @@ class Populacao:
         self.cnt = 0
         self.ger = 0
 
+    def hasConverged(self):
+        return len([i.fitness for i in self.pop if i.fitness < 1]) == 0
+
     def generateSolution(self, geracional=False, roleta=False, tiporecomb=1, tipomut=1):
         self.cnt = 0
         self.ger = 1
+        # while not self.hasConverged():
         while self.pop[-1].fitness != 1 and self.cnt != 10000:
             probCrossover = randint(0, 99)
             if probCrossover < 90:
@@ -48,6 +53,7 @@ class Populacao:
                 self.cnt += len(self.pop)
                     
             self.ger += 1
+        print(self.ger)
         return self.pop[-1] if self.pop[-1].fitness == 1 else None
 
     def roleta(self):
