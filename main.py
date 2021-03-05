@@ -34,6 +34,16 @@ def avaliacao():
         Média do Desvio Padrão: {} \n\
         Número de Indivíduos Convergentes: {} \n'
         .format(arqnome[7:], r1, execs, r2, r3, r4))
+    
+    f = open(arqnome[:-4] + 'resultado.txt', 'w+')
+    f.write('Resultado do {} \n\
+        Quantas execuções o algoritmo convergiu: {}/{} \n\
+        Média do Fitness Médio {} \n\
+        Média do Desvio Padrão: {} \n\
+        Número de Indivíduos Convergentes: {} \n'
+            .format(arqnome[7:], r1, execs, r2, r3, r4))
+    f.close()
+    
 
     return
 
