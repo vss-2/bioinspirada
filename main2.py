@@ -1,6 +1,7 @@
 from Populacao import Populacao
 from numpy import mean, std
 from scipy.stats import shapiro, ttest_ind, ttest_rel
+from itertools import combinations
 
 ans = []
 for tr in [1,2,3]:
@@ -22,11 +23,25 @@ for tr in [1,2,3]:
 for i in ans:
     print(shapiro(i))
 
-# print()
+print()
+
+cruzamentos = {
+    0: "Aleatorio",
+    1: "CX",
+    2: "PMX"
+}
 
 # # for i in [r1, r2, r3]:
 # #     print(ttest_ind(i))
 # print(ttest_ind(r2, r3))
+
+pairs = list(combinations(list(range(3)), 2))
+
+for p in pairs:
+    print(f't_test entre {cruzamentos[p[0]]} e {cruzamentos[p[1]]}')
+    print(ttest_ind(ans[p[0]], ans[p[1]]))
+    print()
+
 
 # print()
 
