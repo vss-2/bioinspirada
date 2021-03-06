@@ -1,0 +1,12 @@
+ShapiroResult(statistic=0.846964418888092, pvalue=9.175032289476803e-09)
+ShapiroResult(statistic=0.8660944104194641, pvalue=4.893187011134614e-08)
+ShapiroResult(statistic=0.9779902696609497, pvalue=0.09257835149765015)
+
+t_test entre Aleatorio e CX
+Ttest_indResult(statistic=6.144075855462204, pvalue=4.338032637417682e-09)
+
+t_test entre Aleatorio e PMX
+Ttest_indResult(statistic=-1.836589354204488, pvalue=0.06776980166838674)
+
+t_test entre CX e PMX
+Ttest_indResult(statistic=-8.240181490622994, pvalue=2.3227702257436233e-14)
