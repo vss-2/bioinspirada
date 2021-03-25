@@ -1,5 +1,6 @@
 # Arquivos teste
 Testes/*.csv
+Testes/*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,6 +1,5 @@
 from Individuo import Individuo
 from random import sample, randint
-from functools import reduce
 from recombinacao import recombinacao
 
 class Populacao:
@@ -19,7 +18,7 @@ class Populacao:
         self.cnt = 0
         self.ger = 1
         # while not self.hasConverged():
-        while self.pop[-1].fitness != 1 and self.cnt != 10000:
+        while self.pop[-1].fitness != 1 and self.ger <= 10000:
             probCrossover = randint(0, 99)
             if probCrossover < 90:
                 if roleta:
@@ -53,7 +52,7 @@ class Populacao:
                 self.cnt += len(self.pop)
                     
             self.ger += 1
-        print(self.ger)
+        # print(f'Geracoes: {self.ger} Avaliacoes de fitness: {self.cnt}')
         return self.pop[-1] if self.pop[-1].fitness == 1 else None
 
     def roleta(self):
