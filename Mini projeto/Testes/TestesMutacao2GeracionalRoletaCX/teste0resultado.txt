@@ -1,0 +1,5 @@
+Resultado do teste0.csv 
+        Quantas execuções o algoritmo convergiu: 30/30 
+        Média do Fitness Médio 0.18720641205200023 
+        Média do Desvio Padrão: 0.10457707997602 
+        Número de Indivíduos Convergentes: 30 
