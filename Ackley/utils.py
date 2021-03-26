@@ -1,5 +1,5 @@
 import numpy as np
-from numpy.random import uniform
+from numpy.random import uniform, randint
 from constants import GENE_SIZE
 
 def ackley(individuo):
@@ -22,3 +22,17 @@ def fitness(individuo):
 
 
 
+def recombinacaoD(pai1, pai2):
+    # Recombinação Discreta
+    # Descrição slide: seleciona aleatoriamente um 
+    # valor de um dos pais (mais usada p/ variáveis objeto)
+    if randint(1,2) == 1:
+        return pai1
+    else:
+        return pai2
+
+def recombinacaoI(pai1, pai2):
+    # Recombinação Intermediária
+    # Descrição slide: calcula os valores médios 
+    # entre os pais (mais usada p/ parâmetros da EE)
+    return (pai1+pai2)/2
