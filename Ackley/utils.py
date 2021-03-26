@@ -1,5 +1,5 @@
 import numpy as np
-from random import uniform
+from random import uniform, randint
 
 def ackley(individuo):
 
@@ -28,3 +28,18 @@ def inicializar_pop():
 
 def get_individuo():
     return [uniform(-15, 15) for _ in range(30)]
+
+def recombinacaoD(pai1, pai2):
+    # Recombinação Discreta
+    # Descrição slide: seleciona aleatoriamente um 
+    # valor de um dos pais (mais usada p/ variáveis objeto)
+    if randint(1,2) == 1:
+        return pai1
+    else:
+        return pai2
+
+def recombinacaoI(pai1, pai2):
+    # Recombinação Intermediária
+    # Descrição slide: calcula os valores médios 
+    # entre os pais (mais usada p/ parâmetros da EE)
+    return (pai1+pai2)/2
