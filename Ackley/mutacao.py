@@ -3,28 +3,32 @@ import numpy as np
 from constants import TAU, TAU2, TAU3, MIN_PACE
 from Individuo import Individuo
 
-def mutacao(codigo, individuo: Individuo):
-    if codigo == 1: r
+def mutacao(individuo: Individuo, tipo):
+    if tipo == 1:
+        mutacao_uniforme(individuo)
+    elif tipo == 2:
+        mutacao_nao_normal(individuo)
+    elif tipo == 3:
+        mutacao_sigma(individuo)
+    elif tipo == 4:
+        mutacao_sigma_2(individuo)
+    elif tipo == 5:
+        mutacao_roubada(individuo)
+
 
 def mutacao_uniforme(individuo: Individuo):
 
     novos_genes = [gene if 5 > randint(0, 101) else uniform(-15, 15) for gene in individuo.genes]
     individuo.genes = novos_genes
 
-def mutacao_uniforme_2(individuo: Individuo):
+def mutacao_nao_normal(individuo: Individuo):
     sd = np.std(individuo.genes)
-    sd_lower = sd if sd < 0 else -sd
-    sd_upper = sd if sd > 0 else -sd
-
     for i in range(len(individuo.genes)):
-        lower = uniform(-15, sd_lower)
-        upper = uniform(sd_upper, 15)
-        x = uniform(lower, upper) + individuo.genes[i]
-        if x > 15: x = x % 15
-        if x < -15: x = -(x % 15)
-
+        x = individuo.genes[i]
+        limInferior = (x - sd) % 15
+        limSuperior = (x + sd) % 15
+        x = uniform(limInferior, limSuperior)
         individuo.genes[i] = x
-
         
 
 def mutacao_sigma(individuo: Individuo):
@@ -43,3 +47,9 @@ def mutacao_sigma_2(individuo: Individuo):
         individuo.paces[i] = max(MIN_PACE, individuo.paces[i])
 
         individuo.genes[i] = individuo.paces[i] * normal()
+
+def mutacao_roubada(individuo: Individuo):
+    for i in range(len(individuo.genes)):
+        x = individuo.genes[i]
+        x *= uniform(-1, 1)
+        individuo.genes[i] = x
