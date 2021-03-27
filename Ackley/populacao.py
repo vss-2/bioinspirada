@@ -12,7 +12,7 @@ class Populacao:
     def __init__(self):
         self.populacao = []
 
-        while len(self.populacao) < 100:
+        while len(self.populacao) < 50:
             i = [uniform(-15, 15) for _ in range(GENE_SIZE)]
             if i not in self.populacao:
                 self.populacao.append(i)
@@ -23,22 +23,31 @@ class Populacao:
         self.geracoes = 0
 
     def gerar_solucao(self, tipo_recombinacao=1, tipo_mutacao=1, tipo_selecao_pais=1, tipo_selecao_sobreviventes=1):
-        while self.geracoes < MAX_GERACAO and self.populacao[-1].fitness < 0.98:
+        while self.geracoes < MAX_GERACAO and self.populacao[-1].fitness < 1:
             self.geracoes += 1
             print(f'{self.geracoes} {self.populacao[-1].fitness}')
-            paisSelecionados = selecao_pais(self.populacao, tipo_selecao_pais)
-            filho = recombinacao(paisSelecionados[0], paisSelecionados[1], tipo_recombinacao)
+            filhos = []
 
-            # Retirar o mais fraco
+            for _ in range(300):
+                paisSelecionados = selecao_pais(self.populacao, tipo_selecao_pais)
+                filhos.append(recombinacao(paisSelecionados[0], paisSelecionados[1], tipo_recombinacao))
+
+            for i in range(len(filhos)):
+                mutacao(filhos[i], tipo_mutacao)
+
+            # (mi, lambda)
             if tipo_selecao_sobreviventes == 1:
-                self.populacao.append(filho)
+                filhos.sort(key=lambda i: i.fitness)
+                self.populacao = filhos[-50:]
+            # (mi, lambda)
+            elif tipo_selecao_sobreviventes == 2:
+                for i in range(len(self.populacao)):
+                    mutacao(self.populacao[i], tipo_mutacao)
+                
+                self.populacao += filhos
                 self.populacao.sort(key=lambda i: i.fitness)
-                self.populacao = self.populacao[1:]
-            # elif tipo_selecao_sobreviventes == 2:
+                self.populacao = self.populacao[-50:]
 
-
-            for i in range(len(self.populacao)):
-                mutacao(self.populacao[i], tipo_mutacao)
 
             self.populacao.sort(key=lambda i: i.fitness)
             
