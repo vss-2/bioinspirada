@@ -5,10 +5,16 @@ def recombinacaoD(pai1: Individuo, pai2: Individuo) -> Individuo:
     # Recombinação Discreta
     # Descrição slide: seleciona aleatoriamente um 
     # valor de um dos pais (mais usada p/ variáveis objeto)
-    if randint(1,3) == 1:
-        return pai1
-    else:
-        return pai2
+    filho = []
+    for i in range(len(pai1.genes)):
+        if randint(0,2) == 0:
+            filho.append(pai1.gene[i])
+        else:
+            filho.append(pai2.gene[i])
+    
+    return Individuo(genes=filho)
+    
+    
 
 def recombinacaoI(pai1: Individuo, pai2: Individuo) -> Individuo:
     # Recombinação Intermediária
