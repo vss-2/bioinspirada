@@ -10,3 +10,8 @@
     6. Processo de seleção por sobrevivência
     7. Condições de término do Algoritmo Evolucionário
 3. Descrição dos resultados experimentais
+
+
+## Mais roubados
+1. Mutação roubada (tipo=5)
+2. Recombinacao roubada (tipo=2)

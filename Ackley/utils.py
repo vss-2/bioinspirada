@@ -11,7 +11,9 @@ def ackley(individuo):
     exp2 = -np.exp(somatorio2)
     parte2 = exp2 + 20 + np.exp(1)
 
-    return round(parte1 + parte2, 5)
+    # return round(parte1 + parte2, 5)
+    return parte1 + parte2
 
 def fitness(individuo):
-    return round(1 / (1 + ackley(individuo)), 5)
+    # return round(1 / (1 + ackley(individuo)), 5)
+    return 1 / (1 + ackley(individuo))
