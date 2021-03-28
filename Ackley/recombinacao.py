@@ -4,7 +4,7 @@ from Individuo import Individuo
 def recombinacao(pai1: Individuo, pai2: Individuo, tipo: int):
     if tipo == 1: return recombinacaoD(pai1, pai2)
     elif tipo == 2: return recombinacaoI(pai1, pai2)
-    elif tipo == 3: return recombinacao_roubada
+    elif tipo == 3: return recombinacao_roubada(pai1, pai2)
 
 def recombinacaoD(pai1: Individuo, pai2: Individuo) -> Individuo:
     # Recombinação Discreta
