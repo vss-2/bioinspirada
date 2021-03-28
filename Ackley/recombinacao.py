@@ -26,7 +26,7 @@ def recombinacaoI(pai1: Individuo, pai2: Individuo) -> Individuo:
     # entre os pais (mais usada p/ parâmetros da EE)
     filho = []
     for i in range(len(pai1.genes)):
-        filho.append(pai1.genes[i] + pai2.genes[i])
+        filho.append((pai1.genes[i] + pai2.genes[i]) / 2)
 
     return Individuo(genes=filho)
 

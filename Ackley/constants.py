@@ -6,4 +6,4 @@ TAU2 = 1 / np.sqrt(2 * GENE_SIZE)
 TAU3 = 1 / np.sqrt(2 * np.sqrt(GENE_SIZE))
 MIN_PACE = 1e-5
 
-MAX_GERACAO = 10000
+MAX_GERACAO = 1500

@@ -5,6 +5,7 @@ from recombinacao import recombinacao
 from mutacao import mutacao
 from numpy.random import uniform, randint
 from random import sample
+from copy import deepcopy
 
 
 class Populacao:
@@ -28,7 +29,7 @@ class Populacao:
             print(f'{self.geracoes} {self.populacao[-1].fitness}')
             filhos = []
 
-            for _ in range(300):
+            for _ in range(400):
                 paisSelecionados = selecao_pais(self.populacao, tipo_selecao_pais)
                 filhos.append(recombinacao(paisSelecionados[0], paisSelecionados[1], tipo_recombinacao))
 
